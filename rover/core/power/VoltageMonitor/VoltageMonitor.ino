@@ -3,12 +3,6 @@
 // David Feinzimer dfeinzimer@gmail.com
 // Last Updated 12/27/17
 
-#include <LiquidCrystal.h>
-
-// LiquidCrystal setup
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
-
 // Arduino max analog input voltage
 float refVcc = 5.0;
 
@@ -16,31 +10,49 @@ void setup() {
   
   Serial.begin(9600);
 
-  // Initialize 16x2 LiquidCrystal display
-  lcd.begin(16, 2);
-  
 }
 
 void loop() {
 
-  lcd.setCursor(0, 0);
-
   // Get raw analog input data
-  int sensorValue = analogRead(A0);
+  int cell1 = analogRead(A0);
+  int cell2 = analogRead(A1);
+  int cell3 = analogRead(A2);
+  int cell4 = analogRead(A3);
+
+
 
   // Display raw analog input data
-  lcd.print("Analog: ");
-  lcd.print(sensorValue);
+  Serial.print("A1: ");
+  Serial.println(cell1);
 
-  // Display time elapsed since program start
-  lcd.setCursor(14, 0);
-  lcd.print(millis() / 1000);
+  Serial.print("A2: ");
+  Serial.println(cell2);
 
-  lcd.setCursor(0, 1);
+  Serial.print("A3: ");
+  Serial.println(cell3);
+
+  Serial.print("A4: ");
+  Serial.println(cell4);
+
+  cell2 = cell2 - cell1;
+  cell3 = cell3 - cell2 - cell1;
+  cell4 = cell4 - cell3 - cell2 - cell1;
 
   // Display calculated voltage of a single cell of the LiPo battery
-  lcd.print("Voltage: ");
-  lcd.print(sensorValue*refVcc/1024);
+  Serial.print("Cell 1 Voltage: ");
+  Serial.println((cell1*refVcc/1024)*5.72687);
+
+  Serial.print("Cell 2 Voltage: ");
+  Serial.println((cell2*refVcc/1024)*5.72687);
+
+  Serial.print("Cell 3 Voltage: ");
+  Serial.println((cell3*refVcc/1024)*5.72687);
+
+  Serial.print("Cell 4 Voltage: ");
+  Serial.println((cell4*refVcc/1024)*5.72687);
+
+  Serial.println();
 
   // Wait 1 second and start the process again
   delay(1000);        // delay a whole second before reading again
