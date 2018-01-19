@@ -159,11 +159,6 @@ def setLed():
         myLeds = pausedLEDs
     else:
         myLeds = controls[mode]["leds"]
-<<<<<<< HEAD
-    GPIO.output(redLed,GPIO.HIGH) if myLeds["R"] else GPIO.output(redLed,GPIO.LOW)
-    GPIO.output(greenLed,GPIO.HIGH) if myLeds["G"] else GPIO.output(greenLed,GPIO.LOW)
-    GPIO.output(blueLed,GPIO.HIGH) if myLeds["B"] else GPIO.output(blueLed,GPIO.LOW)
-=======
     if isPi:
         GPIO.output(redLed,GPIO.HIGH) if myLeds["R"] else GPIO.output(redLed,GPIO.LOW)
         GPIO.output(greenLed,GPIO.HIGH) if myLeds["G"] else GPIO.output(greenLed,GPIO.LOW)
@@ -188,7 +183,6 @@ def requestControl():
     except:
         print("Cannot access mode record")
         pass
->>>>>>> 1824f3e2ef0bb76400c41284b2b3f7abddcec3dd
 
 def checkPause():
     global paused, roverActions
@@ -276,12 +270,8 @@ def main(*argv):
     for i in range(joystick_count):
         pygame.joystick.Joystick(i).init()
 
-<<<<<<< HEAD
-    while (1):
-=======
 
     while True:
->>>>>>> 1824f3e2ef0bb76400c41284b2b3f7abddcec3dd
         pygame.event.pump()  # Keeps pygame in sync with system, performs internal upkeep
         joystick_count = pygame.joystick.get_count()
         if joystick_count == 0:
