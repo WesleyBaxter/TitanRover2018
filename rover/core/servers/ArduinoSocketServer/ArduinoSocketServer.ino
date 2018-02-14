@@ -234,15 +234,16 @@ void loop() {
         }
         case 4:{  //Joint 1, arm base
           if(moveMentArray[4] == -1 || moveMentArray[4] == 1){
-            digitalWrite(joint1_pulse_pin,HIGH);
             arm_pos = analogRead(joint1_pot_pin);
             if(moveMentArray[4] == 1){
               if(arm_pos >= joint1_lower_bound && arm_pos <= joint1_upper_bound){
+                digitalWrite(joint1_pulse_pin,HIGH);
                 digitalWrite(joint1_dir_pin,HIGH); // turn right
               }
             }
             else{
               if(arm_pos >= joint1_lower_bound && arm_pos <= joint1_upper_bound){
+                digitalWrite(joint1_pulse_pin,HIGH);
                 digitalWrite(joint1_dir_pin,LOW); // turn left
               }
             }
