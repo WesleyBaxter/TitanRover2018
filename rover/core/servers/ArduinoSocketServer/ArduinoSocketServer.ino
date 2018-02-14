@@ -16,6 +16,10 @@
 const uint8_t joint1_pulse_pin = 2;
 const uint8_t joint1_dir_pin = 6;
 const uint8_t joint1_enab_pin = 31;
+const uint8_t joint1_pot_pin = 2;
+const uint8_t joint1_lower_bound = 45;
+const uint8_t joint1_upper_bound = 135;
+int arm_pos;
 
 // Joint 4
 const uint8_t joint4_pulse_pin = 3;
@@ -228,14 +232,19 @@ void loop() {
           ARM.motor(2,moveMentArray[3]);  
           break;
         }
-        case 4:{  //Joint 1
+        case 4:{  //Joint 1, arm base
           if(moveMentArray[4] == -1 || moveMentArray[4] == 1){
             digitalWrite(joint1_pulse_pin,HIGH);
+            arm_pos = analogRead(joint1_pot_pin);
             if(moveMentArray[4] == 1){
-              digitalWrite(joint1_dir_pin,HIGH);
+              if(arm_pos >= joint1_lower_bound && arm_pos <= joint1_upper_bound){
+                digitalWrite(joint1_dir_pin,HIGH); // turn right
+              }
             }
             else{
-              digitalWrite(joint1_dir_pin,LOW);
+              if(arm_pos >= joint1_lower_bound && arm_pos <= joint1_upper_bound){
+                digitalWrite(joint1_dir_pin,LOW); // turn left
+              }
             }
           }
           else{
